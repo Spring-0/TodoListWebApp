@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
@@ -47,7 +49,7 @@ public class TodoController {
      * @param todoID
      * @return
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Todo> deleteTodo(@RequestParam String todoID){
         Todo todo = todoRepo.findTodoById(todoID);
         todoRepo.delete(todo);
@@ -71,6 +73,21 @@ public class TodoController {
         todoRepo.save(todo);
 
         return ResponseEntity.ok(todo);
+    }
+
+
+    /**
+     * Endpoint used to return all todos of a user id
+     *
+     * @param userId user's id
+     * @return todos
+     */
+    @GetMapping("/get")
+    public ResponseEntity<List<Todo>> getTodos(@RequestParam String userId){
+
+        List<Todo> todos = todoRepo.getTodosByUserId(userId);
+        return ResponseEntity.ok(todos);
+
     }
 
 }
