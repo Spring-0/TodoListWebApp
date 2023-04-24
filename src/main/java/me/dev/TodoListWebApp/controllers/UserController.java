@@ -3,11 +3,10 @@ package me.dev.TodoListWebApp.controllers;
 
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -16,11 +15,12 @@ public class UserController {
         this.userRepository = userRepo;
 
     }
-    @PostMapping("/user")
-    public String createUser(User user){
-        // test
-        System.out.println(user);
-        return  "1232323";
+    @PostMapping("/register")
+    public User createUser(@RequestBody User user){
+
+        userRepository.save(user);
+
+        return user;
     }
 
 
