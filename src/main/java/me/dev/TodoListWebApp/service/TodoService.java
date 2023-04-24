@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
 public class TodoService {
 
 
-    public Date verifyDate(Date date){
-        // TODO: Verify date for out of range values
-        return null;
+    public boolean verifyDate(Date date){
+        Date currentDate = new Date();
+        return date.before(currentDate);
     }
 
 
