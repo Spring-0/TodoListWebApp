@@ -1,12 +1,14 @@
 package me.dev.TodoListWebApp.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -15,15 +17,15 @@ public class User {
     private String password;
 
     //TODO: Fix?
-    @OneToMany
+    @ManyToAny
     private List<Todo> todos = new ArrayList<Todo>();
 
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(){
+    public User() {
 
     }
 
@@ -57,5 +59,6 @@ public class User {
 
     public void setTodos(List<Todo> todos) {
         this.todos = todos;
+
     }
 }
