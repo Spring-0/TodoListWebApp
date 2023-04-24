@@ -1,5 +1,6 @@
 package me.dev.TodoListWebApp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
@@ -52,6 +53,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonIgnore
     public List<Todo> getTodos() {
         return todos;
     }
