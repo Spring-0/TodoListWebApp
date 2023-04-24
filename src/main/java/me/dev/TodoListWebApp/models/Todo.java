@@ -1,7 +1,6 @@
 package me.dev.TodoListWebApp.models;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
