@@ -8,6 +8,6 @@ public class TodoListWebAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TodoListWebAppApplication.class, args);
-		// testing
 	}
+
 }
