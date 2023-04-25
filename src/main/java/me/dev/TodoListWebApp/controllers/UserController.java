@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,12 +32,14 @@ public class UserController {
         this.userRepository = userRepo;
     }
 
+  
     // create a new user entity
     @PostMapping("/register")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
+  
     /**
      * Endpoint used to get all users
      *
@@ -47,6 +50,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
+  
     /**
      * Endpoint used to get a user given id
      *
@@ -71,21 +75,17 @@ public class UserController {
         return userService.updateUser(id,user.getUsername(), user.getPassword());
     }
 
-   //Todo: finish partial user info update
-
+  
    @PatchMapping ("/update-userName/{id}")
     public ResponseEntity<User> updateUsername(@RequestBody User user, @PathVariable String id) throws UserNotFoundException {
         return userService.updateUsername(id, user.getUsername());
     }
 
 
-    //todo: finish implementation of the delete endpoint
     // delete the user using id
    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@RequestBody User user,  @PathVariable String id ) throws UserNotFoundException {
        return userService.deleteUserById(id);
     }
-
-
 
 }

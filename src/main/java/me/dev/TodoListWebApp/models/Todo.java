@@ -27,6 +27,13 @@ public class Todo {
 
     }
 
+
+    public void editTodo(Todo todo){
+        this.date = todo.date;
+        this.content = todo.content;
+    }
+
+
     public String getId() {
         return id;
     }
