@@ -17,7 +17,7 @@ public class User {
     private String password;
 
     //TODO: Fix?
-    @ManyToAny
+    @OneToMany
     private List<Todo> todos = new ArrayList<Todo>();
 
     public User(String username, String password) {

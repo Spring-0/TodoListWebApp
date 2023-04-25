@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.Todo;
 import me.dev.TodoListWebApp.models.User;
+import me.dev.TodoListWebApp.service.UserNotFoundException;
+import me.dev.TodoListWebApp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +22,11 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
     private final UserRepository userRepository;
 
+    @Autowired
     public UserController(UserRepository userRepo) {
         this.userRepository = userRepo;
     }
@@ -38,69 +44,48 @@ public class UserController {
      */
     @GetMapping("/get")
     public List<User> getAllUser() {
-        return new ArrayList<>((Collection) userRepository.findAll());
+        return userService.getAllUser();
     }
 
     /**
      * Endpoint used to get a user given id
      *
-     * @param id
+     * @param id the user UUID used
      * @return
      */
     @GetMapping("/get/{id}")
-    public ResponseEntity<User> getUser(@PathVariable String id) {
-        User user = userRepository.findById(id).orElseThrow();
-        return ResponseEntity.ok(user);
+    public User getUser(@PathVariable String id) throws UserNotFoundException {
+        return userService.getUserById(id);
     }
 
 
     /**
-     * Endpoint used to update user info given an id
      *
-     * @param user
+     * @param user request body from the user as input
      * @param id
      * @return
+     * @throws UserNotFoundException
      */
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String id) {
-        // check if id exist else create a new user
-        User update = userRepository.findById(id).orElseThrow();
-
-        // update
-        update.setUsername(user.getUsername());
-        update.setPassword(user.getPassword());
-
-        userRepository.save(update);
-        return ResponseEntity.ok(update);
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String id) throws UserNotFoundException {
+        return userService.updateUser(id,user.getUsername(), user.getPassword());
     }
 
    //Todo: finish partial user info update
 
-   /* @PatchMapping ("/update/{id}/{username}")
-    public ResponseEntity<User> updateUsername(@PathVariable String id, @PathVariable String username){
-        User updateUsername= userRepository.findById(id).orElseThrow();
-
-        updateUsername.setUsername(username);
-        userRepository.save(updateUsername);
-        return ResponseEntity.ok(updateUsername);
-    }*/
+   @PatchMapping ("/update-userName/{id}")
+    public ResponseEntity<User> updateUsername(@RequestBody User user, @PathVariable String id) throws UserNotFoundException {
+        return userService.updateUsername(id, user.getUsername());
+    }
 
 
     //todo: finish implementation of the delete endpoint
     // delete the user using id
-   /* @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser( @PathVariable String id ){
-            Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            userRepository.deleteById(id);
-            return ResponseEntity.ok();
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND);
-        }
-
-
+   @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUser(@RequestBody User user,  @PathVariable String id ) throws UserNotFoundException {
+       return userService.deleteUserById(id);
     }
-*/
+
 
 
 }
