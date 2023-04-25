@@ -1,7 +1,7 @@
 package me.dev.TodoListWebApp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,7 @@ public class User {
     private String username;
     private String password;
 
-    //TODO: Fix?
-    @ManyToAny
+    @OneToMany
     private List<Todo> todos = new ArrayList<Todo>();
 
     public User(String username, String password) {
@@ -53,6 +52,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonIgnore
     public List<Todo> getTodos() {
         return todos;
     }
