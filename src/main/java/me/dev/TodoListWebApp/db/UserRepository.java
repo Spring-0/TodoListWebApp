@@ -2,8 +2,11 @@ package me.dev.TodoListWebApp.db;
 
 import me.dev.TodoListWebApp.models.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends CrudRepository <User, String>{
+
+@Repository
+public interface UserRepository extends CrudRepository<User, String> {
 
     User findUserById(String userID);
 
