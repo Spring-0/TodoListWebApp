@@ -3,7 +3,6 @@ package me.dev.TodoListWebApp.controllers;
 
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
-import me.dev.TodoListWebApp.service.UserNotFoundException;
 import me.dev.TodoListWebApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -48,7 +48,7 @@ public class UserController {
     /**
      * Endpoint used to get all users
      *
-     * @return
+     * @return all user's
      */
     @GetMapping("/get")
     public List<User> getAllUser() {
@@ -57,40 +57,50 @@ public class UserController {
 
   
     /**
-     * Endpoint used to get a user given id
+     * Endpoint used to retrieve a user given id
      *
-     * @param id the user UUID used
+     * @param id the user's UUID
      * @return
      */
     @GetMapping("/get/{id}")
-    public User getUser(@PathVariable String id) throws UserNotFoundException {
+    public ResponseEntity<?> getUser(@PathVariable String id)  {
         return userService.getUserById(id);
     }
 
 
     /**
-     *
+     * endpoint for updating the username and password for a given ID
      * @param user request body from the user as input
-     * @param id
+     * @param id the user's UUID
      * @return
-     * @throws UserNotFoundException
      */
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable String id) throws UserNotFoundException {
+    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String id) {
         return userService.updateUser(id,user.getUsername(), user.getPassword());
     }
 
-  
+    /**
+     * Endpoint for updating a username
+     * @param user  the body containing the new changes
+     * @param id the user's UUID
+     * @return
+     */
    @PatchMapping ("/update-userName/{id}")
-    public ResponseEntity<User> updateUsername(@RequestBody User user, @PathVariable String id) throws UserNotFoundException {
-        return userService.updateUsername(id, user.getUsername());
+    public ResponseEntity<?> updateUsername(@RequestBody User user, @PathVariable String id)  {
+        return  userService.updateUsername(id, user.getUsername());
     }
 
 
-    // delete the user using id
+    /**
+     * delete a user for a given ID
+     *
+     * @param id the user's UUID
+     * @return
+     */
    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@RequestBody User user,  @PathVariable String id ) throws UserNotFoundException {
+    public ResponseEntity<?> deleteUser( @PathVariable String id )  {
        return userService.deleteUserById(id);
     }
+
 
 }
