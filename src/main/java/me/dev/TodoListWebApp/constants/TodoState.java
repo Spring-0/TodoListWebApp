@@ -1,7 +1,7 @@
 package me.dev.TodoListWebApp.constants;
 
 public enum TodoState {
-    COMPLETE,
-    DRAFT,
+    COMPLETED,
+    NOT_COMPLETED,
     DELETED
 }
