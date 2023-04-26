@@ -6,6 +6,7 @@ import me.dev.TodoListWebApp.models.User;
 import me.dev.TodoListWebApp.service.UserNotFoundException;
 import me.dev.TodoListWebApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,17 @@ public class UserController {
     @PostMapping("/register")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user){
+        User userFromDB = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+        if(userFromDB == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else{
+            return ResponseEntity.ok(userFromDB);
+        }
     }
 
   
