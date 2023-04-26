@@ -22,7 +22,7 @@ function login(event) {
             if(response.status === 200){
                 window.location.replace("/todos");
             } else{
-                document.getElementById("errorTbx").innerText = "Unable to authenticate with those credentials!";
+                alert("Error: Unable to authenticate with those credentials.");
             }
         })
         .catch(error => console.error(error));
@@ -53,7 +53,7 @@ function register(event) {
             if(response.status === 200){
                 window.location.replace("/todos");
             } else{
-                document.getElementById("errorTbx").innerText = "Unable to login.";
+                alert("Error: Unable to register at the moment, try again later.");
             }
         })
         .catch(error => console.error(error));
