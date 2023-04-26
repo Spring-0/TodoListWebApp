@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script th:src="@{/js/userAuthentication.js}"></script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    <div>
+        <form onsubmit="login(event)">
+
+            <div>
+                <label for="usernameTbx">Username:</label>
+                <input type="text" name="username" id="usernameTbx">
+            </div>
+
+            <div>
+                <label for="passwordTbx">Password:</label>
+                <input type="text" name="password" id="passwordTbx">
+            </div>
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
