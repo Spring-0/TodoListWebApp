@@ -3,6 +3,7 @@ package me.dev.TodoListWebApp.service;
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +16,20 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
-
     /**
      * if user id exist, then return the user
-     * else throw an exception
+     * else return an error
      *
      * @param id the user's UUID
      * @return
-     * @throws UserNotFoundException
      */
-    public User getUserById(String id) throws UserNotFoundException {
+    public ResponseEntity<?> getUserById(String id) {
         if( userRepo.existsById(id)){
-            return userRepo.findById(id).get();
+            User found = userRepo.findById(id).get();
+            return ResponseEntity.ok(found);
         }else {
-           throw new UserNotFoundException(id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User with ID: " + id + " not found.\nPlease create an account.");
         }
 
     }
@@ -44,61 +45,63 @@ public class UserService {
 
     /**
      * if user exist, then delete a user with a given id
-     * else throw an exception
+     * else return an error
      *
      * @param id the user's UUID
      * @return
-     * @throws UserNotFoundException
      */
-    public ResponseEntity<String> deleteUserById(String id) throws UserNotFoundException{
+    public ResponseEntity<?> deleteUserById(String id){
         if (userRepo.existsById(id)) {
             userRepo.deleteById(id);
-            return ResponseEntity.ok("User with ID: "+id + "was successfully deleted.");
+            return ResponseEntity.ok().body("User with ID: "+id + " was successfully deleted.");
         }  else{
-          throw new UserNotFoundException(id);
-
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User with ID: " + id + " not found. Please create an account.");
         }
     }
 
     /**
      * if user exist, then update the username of a given id
-     * else throw an exception
+     * else return an error
      * @param id the user's UUID
      * @param username the username to be updated
      * @return
-     * @throws UserNotFoundException
      */
-    public ResponseEntity<User> updateUsername(String id, String username) throws UserNotFoundException {
+    public ResponseEntity<?> updateUsername(String id, String username)  {
 
         if (userRepo.existsById(id)) {
             User updateUsername = userRepo.findById(id).get();
             updateUsername.setUsername(username);
             userRepo.save(updateUsername);
-            return ResponseEntity.ok(updateUsername );
+            return ResponseEntity.ok().body("Updated for ID: " +id+"\nNew username: "+updateUsername.getUsername());
         } else {
-            throw new UserNotFoundException(id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User with ID: " + id + "" +
+                            "not found. Please create an account.");
         }
     }
 
     /**
-     * check if your exist, if true update a user given id, password, and username
-     * else throw an exception
+     * check if the given UUID exists, if true update the password and username
+     * else return an error
      *
      * @param id the user's UUID
      * @param password the password that is to be updated
      * @param username the username to be updated
      * @return
-     * @throws UserNotFoundException
      */
-    public ResponseEntity<User>  updateUser( String id, String username, String password) throws UserNotFoundException {
+    public ResponseEntity<?>  updateUser( String id, String username, String password) {
         if( userRepo.existsById(id)){
             User updatedUser = userRepo.findById(id).get();
             updatedUser.setUsername(username);
             updatedUser.setPassword(password);
             userRepo.save(updatedUser);
-            return ResponseEntity.ok(updatedUser);
+            return ResponseEntity.ok().body("Updated for ID: " + id+"\nNew username: "+ updatedUser.getUsername() +"" +
+                    "\nNew password: "+ updatedUser.getPassword());
         }else{
-            throw new UserNotFoundException(id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User with ID: " + id + "" +
+                            "not found. Please create an account.");
         }
 
 
