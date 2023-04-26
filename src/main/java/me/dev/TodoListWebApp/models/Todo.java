@@ -17,10 +17,13 @@ public class Todo {
 
     private String content;
 
+    private boolean completed;
+
     public Todo(Date date, User user, String content){
         this.date = date;
         this.user = user;
         this.content = content;
+        this.completed = false;
     }
 
     public Todo(){
@@ -31,6 +34,10 @@ public class Todo {
     public void editTodo(Todo todo){
         this.date = todo.date;
         this.content = todo.content;
+    }
+
+    public void toggleCompletion(){
+        this.completed = !this.completed;
     }
 
 

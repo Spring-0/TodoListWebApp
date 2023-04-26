@@ -100,4 +100,17 @@ public class TodoController {
 
     }
 
+
+    /**
+     * Endpoint used to toggle the state of a todo
+     * @param todoId todo id
+     * @return
+     */
+    @PostMapping("/toggleTodo")
+    public ResponseEntity<?> toggleTodoState(@RequestParam String todoId){
+        todoService.toggleTodoState(todoId);
+        return ResponseEntity.ok().body("Successfully toggled");
+
+    }
+
 }

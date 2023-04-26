@@ -1,5 +1,8 @@
 package me.dev.TodoListWebApp.service;
 
+import me.dev.TodoListWebApp.db.TodoRepository;
+import me.dev.TodoListWebApp.models.Todo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -9,9 +12,12 @@ import java.text.SimpleDateFormat;
 @Service
 public class TodoService {
 
+    @Autowired
+    TodoRepository todoRepo;
+
     public boolean verifyDate(Date date){
         Date currentDate = new Date();
-        return date.after(currentDate);
+        return date.before(currentDate);
     }
 
 
@@ -32,4 +38,11 @@ public class TodoService {
         return null;
 
     }
+
+    public void toggleTodoState(String todoId){
+        Todo todo = todoRepo.findTodoById(todoId);
+        todo.toggleCompletion();
+        todoRepo.save(todo);
+    }
+
 }
