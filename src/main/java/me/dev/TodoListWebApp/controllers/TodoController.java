@@ -6,6 +6,7 @@ import me.dev.TodoListWebApp.models.DTO.TodoDTO;
 import me.dev.TodoListWebApp.models.Todo;
 import me.dev.TodoListWebApp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +51,13 @@ public class TodoController {
      * @return
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<Todo> deleteTodo(@RequestParam String todoID){
+    public ResponseEntity<?> deleteTodo(@RequestParam String todoID){
         Todo todo = todoRepo.findTodoById(todoID);
+
+        if(todo == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Could not find a todo with that ID");
+        }
+        
         todoRepo.delete(todo);
         return ResponseEntity.ok(todo);
     }
