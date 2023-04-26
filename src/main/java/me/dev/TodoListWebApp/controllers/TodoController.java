@@ -34,13 +34,17 @@ public class TodoController {
      * @return todo
      */
     @PostMapping("/add")
-    public Todo addTodo(@RequestBody TodoDTO todoDto){
+    public ResponseEntity<?> addTodo(@RequestBody TodoDTO todoDto){
 
         Todo todo = new Todo(todoService.getDate(todoDto.getDate()), userRepo.findUserById(todoDto.getUserId()), todoDto.getContent());
 
+        if(!todoService.verifyDate(todo.getDate())){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(todo);
+        }
+
         todoRepo.save(todo);
         todo.getUser().getTodos().add(todo);
-        return todo;
+        return ResponseEntity.ok(todo);
     }
 
 
