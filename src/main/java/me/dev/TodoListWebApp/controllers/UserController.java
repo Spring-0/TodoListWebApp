@@ -29,18 +29,25 @@ public class UserController {
   
     // create a new user entity
     @PostMapping("/register")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        if(user.getUsername().equals("") || user.getPassword().equals("")){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user){
+    public ResponseEntity<User> login(@RequestBody User user) {
         User userFromDB = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if(userFromDB == null){
+
+        if (user.getUsername().equals("") || user.getPassword().equals("")) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        } else if (userFromDB == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else{
-            return ResponseEntity.ok(userFromDB);
+        } else {
+            return ResponseEntity.ok(user);
         }
     }
 
