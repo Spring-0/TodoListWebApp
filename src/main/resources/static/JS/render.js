@@ -52,7 +52,7 @@ function getID(event){
 
 }
 function loadTodos(userId){
-    fetch("/todo/get?todo="+ userId, {
+    fetch("/todo/get?userId="+ userId, {
         method: 'GET',
         header: {
             'Content-Type': 'Application/Json'
@@ -63,7 +63,7 @@ function loadTodos(userId){
                        createTodoTable(response.json())
             } else{
                 // Show Error
-                alert("Unable to load Todos")
+                alert("Unable to load Todos `111`")
             }
         })
 }
@@ -87,12 +87,12 @@ function createTodoTable(todos) {
 
 
         const content = row.insertCell(1)
-        content.textContent = todos[i]["content"]["content"]
+        content.textContent = todos[i]["content"]
 
         const date = row.insertCell(2)
         //todo: ??
         // date.textContent = todos.getDate()
-        date.textContent = todos[i]["date"]["date"]
+        date.textContent = todos[i]["date"]
 
         const complete = row.insertCell(3)
         const checkBox = document.createElement("input");
