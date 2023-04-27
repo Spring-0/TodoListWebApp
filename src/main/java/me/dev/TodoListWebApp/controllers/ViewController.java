@@ -24,4 +24,10 @@ public class ViewController {
         return "index.html";
     }
 
+    @GetMapping("/Todos")
+    public String viewTodo(){
+        return "Todo.html";
+    }
+
+
 }
