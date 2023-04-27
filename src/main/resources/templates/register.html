@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script th:src="@{/js/userAuthentication.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
-<body>
 
-<div>
-    <form onsubmit="register(event)">
+<body class="bg-light">
 
-        <div>
-            <label for="usernameTbx">Username:</label>
-            <input type="text" name="username" id="usernameTbx">
+
+<div class="navbar bg-gradient-purple-red text-light animated--grow-in">
+    <div>
+        <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
+        <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
+        <a href="/login" class="text-light btn-outline-light bg-gray-900 btn">Login</a>
+        <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
+    </div>
+</div>
+
+<div class="container animated--grow-in justify-content-center">
+
+    <div class="pt-5">
+        <div class="card border-dark">
+            <h3 class="card-header">Register</h3>
+
+            <div class="card-body bg-white">
+                <form onsubmit="register(event)">
+
+                    <div>
+                        <label class="col-2" for="usernameTbx">Username</label>
+                        <input type="text" name="username" id="usernameTbx">
+                    </div>
+
+                    <div>
+                        <label class="col-2" for="passwordTbx">Password</label>
+                        <input type="text" name="password" id="passwordTbx">
+                    </div>
+
+                    <div class="card-body p-0 px-sm-2">
+                        <button class="card bg-gradient-purple-red text-light" type="submit">Submit</button>
+                    </div>
+
+
+                </form>
+            </div>
+            <p class="card-footer">Already have an account? <a href="/login">Login</a>.</p>
         </div>
+    </div>
 
-        <div>
-            <label for="passwordTbx">Password:</label>
-            <input type="text" name="password" id="passwordTbx">
-        </div>
-
-        <button type="submit">Submit</button>
-
-    </form>
-    <h3 id="errorTbx"></h3>
 </div>
 
 </body>

@@ -1,6 +1,8 @@
 package me.dev.TodoListWebApp.controllers;
 
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
 import me.dev.TodoListWebApp.service.UserService;
@@ -29,18 +31,34 @@ public class UserController {
   
     // create a new user entity
     @PostMapping("/register")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<?> createUser(@RequestBody User user, HttpServletResponse response) {
+        if(user.getUsername().equals("") || user.getPassword().equals("")){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+        userRepository.save(user);
+        Cookie cookie = new Cookie("userId", user.getId());
+        cookie.setPath("/");
+        cookie.setMaxAge(20000000);
+        response.addCookie(cookie);
+        return ResponseEntity.ok(user);
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user){
+    public ResponseEntity<User> login(@RequestBody User user, HttpServletResponse response) {
         User userFromDB = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if(userFromDB == null){
+
+        if (user.getUsername().equals("") || user.getPassword().equals("")) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        } else if (userFromDB == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else{
+        } else {
+            Cookie cookie = new Cookie("userId", user.getId());
+            cookie.setPath("/");
+            cookie.setMaxAge(20000000);
+            response.addCookie(cookie);
             return ResponseEntity.ok(userFromDB);
+
         }
     }
 
