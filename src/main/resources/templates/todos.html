@@ -2,9 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todos</title>
+ 
+ <title>Todo</title>
+   <script src="/static/JS/render.js"></script>
+  <link rel="stylesheet" href="/static/CSS/sb-admin-2.css">
+
 </head>
-<body>
+<!--make a table in html and call the todos
+ make a util class that will get the cookies for user
+ with the cookies get the TODOs
+ make an array and loop all todos into a table-->
+
+<div class="navbar bg-gradient-purple-red text-light animated--grow-in justify-content-end">
+    <div>
+        <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
+        <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
+        <a href="/register" class="text-light btn-outline-light bg-gray-900 btn">Register</a>
+        <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
+    </div>
+</div>
+
+<body class="bg-light">
+<div class="container animated--grow-in justify-content-md-start">
+        <h3>Your Todo's</h3>
+        <form id="idForm">
+            <label for="userIdInput"> Enter Todo Id</label>
+            <input type="text" id="userIdInput">
+            <button type="submit">Submit</button>
+            <script> createTodoTable(testUserData)</script>
+        </form>
+
+         <form>
+            <table id="myTable" class="table bg-light " style="bg-color:var(--purple); ">
+
+                <tr class=" ">
+                    <th>User</th>
+                    <th >Content</th>
+                    <th>Date</th>
+                    <th>Complete</th>
+                </tr>
+
+                <tbody >
+                </tbody>
+            </table>
+        </form>
+
+    <div>
+        <p class="card-footer">Add more Todo's?
+            <a href="/todo/add">
+            <button class="font-weight-bold  btn animated--grow-in text-primary ">Add</button>
+            </a>
+        </p>
+    </div>
+</div>
+
 
 </body>
 </html>
