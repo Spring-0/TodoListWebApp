@@ -1,6 +1,6 @@
 
 // test data
-const testUserData = [
+/*const testUserData = [
     {
         id: "221ed967-d6db-485b-99b9-541f84397677",
         date: "2020-02-02T06:11:11.000+00:00",
@@ -32,17 +32,24 @@ const testUserData = [
         content: "wake up",
     },
     // Add more todo objects as needed...
-];
-function getID(){
-    const formElement = document.getElementById("idForm")
-    formElement.addEventListener("submit", (event) => {
+];*/
+function getID(event){
+    //const formElement = document.getElementById("idForm")
+/*    formElement.addEventListener("submit", (event) => {
         event.preventDefault()
         // grab the input from the user regarding todo id ??
         const input = document.getElementById("userIdInput")
 
         const id = input.value;
         loadTodos(id)
-    });
+    });*/
+    event.preventDefault()
+    // grab the input from the user regarding todo id ??
+    const input = document.getElementById("userIdInput")
+
+    const id = input.value;
+    loadTodos(id)
+
 }
 function loadTodos(userId){
     fetch("/todo/get?todo="+ userId, {
@@ -53,7 +60,7 @@ function loadTodos(userId){
     })
         .then(response => {
             if(response.status === 200){
-                       createTodoTable(userId)
+                       createTodoTable(response.json())
             } else{
                 // Show Error
                 alert("Unable to load Todos")
@@ -72,18 +79,20 @@ function createTodoTable(todos) {
     const table= document.getElementById("myTable")
 
     for(let i= 0; i < todos.length; i++){
-        const row = table.insertRow()
 
+
+        const row = table.insertRow()
         const user = row.insertCell(0)
-        user.textContent = todos.entries()
+        user.textContent = todos[i]["user"]["username"]
+
 
         const content = row.insertCell(1)
-        content.textContent = todos.content
+        content.textContent = todos[i]["content"]["content"]
 
         const date = row.insertCell(2)
         //todo: ??
         // date.textContent = todos.getDate()
-        date.textContent = "2020-02-20"
+        date.textContent = todos[i]["date"]["date"]
 
         const complete = row.insertCell(3)
         const checkBox = document.createElement("input");

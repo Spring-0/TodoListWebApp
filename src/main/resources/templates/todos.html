@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
- 
- <title>Todo</title>
-   <script src="/static/JS/render.js"></script>
-  <link rel="stylesheet" href="/static/CSS/sb-admin-2.css">
+   
+    <title>Todo</title>
+    <script th:src="@{/JS/render.js}"></script>
+    <link rel="stylesheet" th:href="@{/CSS/sb-admin-2.css}">
+    
 
 </head>
 <!--make a table in html and call the todos
@@ -15,7 +16,7 @@
 
 <div class="navbar bg-gradient-purple-red text-light animated--grow-in justify-content-end">
     <div>
-        <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
+        <a href="/home" class="text-light btn-outline-light  animated--grow-in bg-gray-900 btn">Home</a>
         <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
         <a href="/register" class="text-light btn-outline-light bg-gray-900 btn">Register</a>
         <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
@@ -25,11 +26,10 @@
 <body class="bg-light">
 <div class="container animated--grow-in justify-content-md-start">
         <h3>Your Todo's</h3>
-        <form id="idForm">
+        <form id="idForm" onsubmit="getID(event)">
             <label for="userIdInput"> Enter Todo Id</label>
             <input type="text" id="userIdInput">
             <button type="submit">Submit</button>
-            <script> createTodoTable(testUserData)</script>
         </form>
 
          <form>
@@ -43,6 +43,7 @@
                 </tr>
 
                 <tbody >
+
                 </tbody>
             </table>
         </form>
@@ -50,7 +51,7 @@
     <div>
         <p class="card-footer">Add more Todo's?
             <a href="/todo/add">
-            <button class="font-weight-bold  btn animated--grow-in text-primary ">Add</button>
+            <button class="font-weight-bold  btn animated--grow-in text-primary">Add</button>
             </a>
         </p>
     </div>
