@@ -19,7 +19,7 @@ public class ViewController {
     }
 
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     public String viewIndex(){
         return "index.html";
     }
