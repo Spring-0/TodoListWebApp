@@ -19,14 +19,15 @@ public class ViewController {
     }
 
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     public String viewIndex(){
         return "index.html";
     }
 
-    @GetMapping("/Todos")
+
+    @GetMapping("/todos")
     public String viewTodo(){
-        return "Todo.html";
+        return "todos.html";
     }
 
 
