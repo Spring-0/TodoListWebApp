@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   
     <title>Todo</title>
     <script th:src="@{/JS/render.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/sb-admin-2.css}">
-    
+
 
 </head>
 <!--make a table in html and call the todos
@@ -30,26 +29,30 @@
             <label for="userIdInput"> Enter Todo Id</label>
             <input type="text" id="userIdInput">
             <button type="submit">Submit</button>
+            <script>
+
+            </script>
         </form>
 
          <form>
-            <table id="myTable" class="table bg-light " style="bg-color:var(--purple); ">
-
+            <table id="table" class="table bg-light " style="bg-color:var(--purple); ">
                 <tr class=" ">
                     <th>User</th>
                     <th >Content</th>
                     <th>Date</th>
                     <th>Complete</th>
                 </tr>
+                <tbody id="myTable">
+                        <tr>
 
-                <tbody >
 
+                        </tr>
                 </tbody>
+
             </table>
         </form>
-
     <div>
-        <p class="card-footer">Add more Todo's?
+        <p class="card-footer px-0">Add more Todo's?
             <a href="/todo/add">
             <button class="font-weight-bold  btn animated--grow-in text-primary">Add</button>
             </a>
