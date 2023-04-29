@@ -28,25 +28,25 @@ function getID(event) {
 
 async function loadTodos(userId) {
 
-    fetch("/todo/get?userId=" +userId, {
+    fetch("/todo/get?userId=" + userId, {
         method: 'GET', header: {
             'Content-Type': 'Application/Json'
         },
     })
          .then(response  => {
-            if (response.status === 200) {
-                //console.log("theres data coming through")
-                console.log(userId +" dsdsds ssds1 success")
+             if (response.status === 200) {
+                 createTodoTable(response.json())
 
-                createTodoTable(response.json())
-                console.log(userId +" dsdsds ssds1 2222 success")
+             } else if (response.status === 404) {
+                 // User does not have any todos
+                 // TODO implement prompt to add todos
+                 alert("You do not have any todos")
 
-        } else {
-                // Show Error
-                alert("Unable to load Todo's")
-                console.log(userId + " 111111 waderror")
-            }
-        })
+             } else {
+                 alert("Something went wrong while loading your todos, try again later.")
+             }
+         }
+        )
 }
 
 
