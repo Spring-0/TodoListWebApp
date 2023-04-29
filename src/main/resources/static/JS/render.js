@@ -60,7 +60,7 @@ function createTodoTable(todos) {
         const row = `<tr>
                                 <td>${response[i].user.username}</td>
                                 <td> ${response[i].content}</td>
-                                <td> ${response[i].date.t}</td>
+                                <td> ${formatDate(response[i].date)}</td>
                                 <td> <input  type="checkbox"></td>
                           </tr> `;
         table.innerHTML += row
