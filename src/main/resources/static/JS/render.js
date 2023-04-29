@@ -55,6 +55,9 @@ function createTodoTable(todos) {
     todos.then(response  =>{
     const table = document.getElementById("myTable")
 
+    // Clear table contents
+    table.innerHTML = ""
+
     for (let i = 0; i < response.length; i++) {
 
         const row = `<tr>
