@@ -82,7 +82,13 @@ public class UserController {
      */
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getUser(@PathVariable String id)  {
-        return userService.getUserById(id);
+        User user = userService.getUserById(id);
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User with ID: " + id + " not found.\nPlease create an account.");
+        }
     }
 
 
