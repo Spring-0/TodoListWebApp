@@ -2,6 +2,7 @@ package me.dev.TodoListWebApp.models;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class Todo {
@@ -20,6 +21,7 @@ public class Todo {
     private boolean completed;
 
     public Todo(Date date, User user, String content){
+        this.id = UUID.randomUUID().toString();
         this.date = date;
         this.user = user;
         this.content = content;

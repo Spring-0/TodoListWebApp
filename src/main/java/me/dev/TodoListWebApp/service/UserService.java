@@ -23,15 +23,8 @@ public class UserService {
      * @param id the user's UUID
      * @return
      */
-    public ResponseEntity<?> getUserById(String id) {
-        if( userRepo.existsById(id)){
-            User found = userRepo.findById(id).get();
-            return ResponseEntity.ok(found);
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User with ID: " + id + " not found.\nPlease create an account.");
-        }
-
+    public User getUserById(String id) {
+        return userRepo.findUserById(id);
     }
 
     /**
@@ -103,11 +96,6 @@ public class UserService {
                     .body("User with ID: " + id + "" +
                             "not found. Please create an account.");
         }
-
-
     }
-
-
-
 }
 

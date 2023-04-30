@@ -96,6 +96,11 @@ public class TodoController {
     public ResponseEntity<List<Todo>> getTodos(@RequestParam String userId){
 
         List<Todo> todos = todoRepo.getTodosByUserId(userId);
+
+        if(todos.size() == 0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(todos);
+        }
+
         return ResponseEntity.ok(todos);
 
     }
