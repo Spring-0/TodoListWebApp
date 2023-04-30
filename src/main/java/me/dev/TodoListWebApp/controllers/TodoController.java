@@ -97,6 +97,7 @@ public class TodoController {
 
         List<Todo> todos = todoRepo.getTodosByUserId(userId);
 
+        // check if the user has 0 Todo's then throw an error (404)
         if(todos.size() == 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(todos);
         }

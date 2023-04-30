@@ -26,10 +26,11 @@
 <body class="bg-light">
 <div class="container animated--grow-in justify-content-md-start">
         <h3>Your Todo's</h3>
-        <form id="idForm" onsubmit="getID(event)">
+    <!--   <form id="idForm" onsubmit="getID(event)">
             <label for="userIdInput"> Enter Todo Id</label>
             <input type="text" id="userIdInput">
-            <button type="submit">Submit</button>
+            <button type="submit">Submit</button>-->
+
             <script>
 
             </script>
@@ -38,7 +39,6 @@
          <form>
             <table id="table" class="table bg-light " style="bg-color:var(--purple); ">
                 <tr class=" ">
-                    <th>User</th>
                     <th >Content</th>
                     <th>Date</th>
                     <th>Complete</th>
@@ -52,13 +52,13 @@
 
             </table>
         </form>
-    <div>
+    <div class="flex-content">
         <p class="card-footer px-0">Add more Todo's?
-            <a href="/todo/add">
-            <button class="font-weight-bold  btn animated--grow-in text-primary">Add</button>
-            </a>
+            <button class="font-weight-bold  btn animated--grow-in text-primary" onclick="addRow()">Add</button>
         </p>
+        <button class="font-weight-bold  btn animated--grow-in text-primary " >Save</button>
     </div>
+
 </div>
 
 
