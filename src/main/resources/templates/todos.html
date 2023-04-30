@@ -6,6 +6,7 @@
     <script th:src="@{/JS/render.js}"></script>
     <script th:src="@{/JS/Util.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/sb-admin-2.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
 
 
 </head>
@@ -14,7 +15,7 @@
  with the cookies get the TODOs
  make an array and loop all todos into a table-->
 
-<div class="navbar bg-gradient-purple-red text-light animated--grow-in justify-content-end">
+<div class="navbar bg-gradient-purple-red text-light animated--grow-in justify-content-end mb-5">
     <div>
         <a href="/home" class="text-light btn-outline-light  animated--grow-in bg-gray-900 btn">Home</a>
         <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
@@ -24,7 +25,7 @@
 </div>
 
 <body class="bg-light">
-<div class="container animated--grow-in justify-content-md-start">
+<div class="container animated--grow-in justify-content-md-start pb-5">
         <h3>Your Todo's</h3>
     <!--   <form id="idForm" onsubmit="getID(event)">
             <label for="userIdInput"> Enter Todo Id</label>
@@ -52,11 +53,12 @@
 
             </table>
         </form>
-    <div class="flex-content">
-        <p class="card-footer px-0">Add more Todo's?
-            <button class="font-weight-bold  btn animated--grow-in text-primary" onclick="addRow()">Add</button>
-        </p>
-        <button class="font-weight-bold  btn animated--grow-in text-primary " >Save</button>
+    <div class="flex flex-col w-screen h-full">
+        <div class="flex space-x-5">
+            <p>Add more Todo's?</p>
+            <button onclick="addRow()" class="font-bold text-blue-400">Add</button>
+            <button class="font-bold text-blue-400">Save</button>
+        </div>
     </div>
 
 </div>
