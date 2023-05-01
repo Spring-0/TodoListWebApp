@@ -1,58 +1,47 @@
-
-
-
 function getCookies() {
-    const cookieValue = document.cookie.split(";").
-    find((row) => row.startsWith("userId")).split("=")[1];
-     return cookieValue
+    return document.cookie.split(";").find((row) => row.startsWith("userId")).split("=")[1];
 }
 
-loadTodos(getCookies())
- function loadTodos(userId) {
 
+function loadTodos(userId) {
     fetch("/todo/get?userId=" + userId, {
         method: 'GET', header: {
             'Content-Type': 'Application/Json'
         },
     })
-         .then(response  => {
-             if (response.status === 200) {
-                 createTodoTable(response.json())
-             } else if (response.status === 404) {
-                 // User does not have any todos
-                 // TODO implement prompt to add todos
-                 addRow()
+        .then(response => {
+                if (response.status === 200) {
+                    populateTodoTable(response.json())
 
-             } else {
-                 alert("Something went wrong while loading your todos, try again later.")
-             }
-         }
+                } else if (response.status === 404) {
+                    // User does not have any todos
+                    addRow()
+
+                } else {
+                    alert("Something went wrong while loading your todos, try again later.")
+                }
+            }
         )
-
 }
 
 
-function createTodoTable(todos) {
+function populateTodoTable(todos) {
+    todos.then(data => {
+        const table = document.getElementById("myTable");
+        table.innerHTML = "";
 
-    todos.then(response  =>{
-        const table = document.getElementById("myTable")
-
-        // Clear table contents
-        table.innerHTML = ""
-
-        for (let i = 0; i < response.length; i++) {
-
+        data.forEach(todo => {
             const row = `<tr>
-                                <td> ${response[i].content}</td>
-                                <td> ${formatDate(response[i].date)}</td>
-                                <td> <input  type="checkbox"></td>
-                          </tr> `;
-            table.innerHTML += row
+                <td>${todo.content}</td>
+                <td>${formatDate(todo.date)}</td>
+                <td><input type="checkbox"></td>
+            </tr>`;
 
-        }
+            table.insertAdjacentHTML("beforeend", row);
+        });
     });
-
 }
+
 
 async function addRow(){
     const table = document.getElementById("myTable")

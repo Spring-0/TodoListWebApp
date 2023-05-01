@@ -26,33 +26,27 @@
 
 <body class="bg-light">
 <div class="container animated--grow-in justify-content-md-start pb-5">
-        <h3>Your Todo's</h3>
-    <!--   <form id="idForm" onsubmit="getID(event)">
-            <label for="userIdInput"> Enter Todo Id</label>
-            <input type="text" id="userIdInput">
-            <button type="submit">Submit</button>-->
+    <h3>Your Todo's</h3>
 
-            <script>
+    <table id="table" class="table bg-light" style="bg-color:var(--purple);">
+        <thead>
+        <tr class="">
+            <th>Content</th>
+            <th>Date</th>
+            <th>Complete</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        </tbody>
+    </table>
 
-            </script>
-        </form>
+    <script>
+        // Load todos after table has been loaded.
+        window.addEventListener('DOMContentLoaded', function () {
+            loadTodos(getCookies())
+        });
+    </script>
 
-         <form>
-            <table id="table" class="table bg-light " style="bg-color:var(--purple); ">
-                <tr class=" ">
-                    <th >Content</th>
-                    <th>Date</th>
-                    <th>Complete</th>
-                </tr>
-                <tbody id="myTable">
-                        <tr>
-
-
-                        </tr>
-                </tbody>
-
-            </table>
-        </form>
     <div class="flex flex-col w-screen h-full">
         <div class="flex space-x-5">
             <p>Add more Todo's?</p>
