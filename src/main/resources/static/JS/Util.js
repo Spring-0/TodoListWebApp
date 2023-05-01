@@ -17,7 +17,7 @@ function formatDate(dateString){
     return date.toLocaleDateString("en-US", options)
 }
 
-//todo: svae user Todo's to database
+// Todo: save user's todos to database
 function saveTodoToDatabase(todo){
 
     const table = document.getElementById("table").rows[0]
@@ -27,5 +27,3 @@ function saveTodoToDatabase(todo){
     }
 
 }
-
-saveTodoToDatabase(addRow())

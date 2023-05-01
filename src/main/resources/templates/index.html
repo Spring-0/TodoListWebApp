@@ -27,16 +27,16 @@
 </div>
 
 <script>
-    var countDown = new Date("August 1, 2023").getTime()
+    const countDown = new Date("August 1, 2023").getTime();
 
     let timer = setInterval(  () => {
         let now = new Date().getTime()
         let update = countDown - now;
         // get the day, hour, minutes
-        var days = Math.floor(update / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((update % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((update % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((update % (1000 * 60)) / 1000);
+        const days = Math.floor(update / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((update % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((update % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((update % (1000 * 60)) / 1000);
 
         document.getElementById("timer").innerHTML = days +"d " + hours +"h "+ minutes+"m "+ seconds+"s "
 

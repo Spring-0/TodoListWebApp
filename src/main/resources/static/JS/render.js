@@ -43,18 +43,17 @@ function populateTodoTable(todos) {
 }
 
 
-async function addRow(){
+async function addRow() {
     const table = document.getElementById("myTable")
 
-
     const contentInput = document.createElement("input")
-    contentInput.setAttribute("type", "text" )
+    contentInput.setAttribute("type", "text")
 
     const dateInput = document.createElement("input")
-    dateInput.setAttribute("type", "text" )
+    dateInput.setAttribute("type", "text")
 
     const checkbox = document.createElement("input")
-    checkbox.setAttribute("type" ,"checkbox")
+    checkbox.setAttribute("type", "checkbox")
 
     const row = document.createElement("tr")
     const tData = document.createElement("td")
