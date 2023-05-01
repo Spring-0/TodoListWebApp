@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todo</title>
+    <title>Todo's</title>
     <script th:src="@{/JS/render.js}"></script>
     <script th:src="@{/JS/Util.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/sb-admin-2.css}">
-    <script src="https://cdn.tailwindcss.com"></script>
+
 
 
 </head>
@@ -51,7 +51,7 @@
         <div class="flex space-x-5">
             <p>Add more Todo's?</p>
             <button onclick="addRow()" class="font-bold text-blue-400">Add</button>
-            <button class="font-bold text-blue-400">Save</button>
+            <button class="font-bold text-blue-400" onclick="saveTodoToDatabase()">Save</button>
         </div>
     </div>
 

@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{css/sb-admin-2.css}">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
     <title>Home</title>
 
-</head>
 
-<body style="overflow: hidden">
-<div class="navbar bg-gradient-purple-red text-light animated--grow-in">
+</head>
+<style>
+    .center-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+    }
+
+</style>
+<body style="overflow: hidden"class="bg-theme-gradient-purple-red">
+<div class="navbar bg-gradient-purple-red border-bottom-light text-light animated--grow-in">
     <div>
         <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
         <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
@@ -16,13 +26,15 @@
         <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
     </div>
 </div>
-<div class="bg-theme-gradient-purple-red">
-    <div >
-        <p class="h4 text-white">Insert Logo here!!!</p>
-    </div>
-    <div class="container">
-        <h3 class=" font-weight-bold  text-white justify-content-end " >COMING SOON</h3>
-        <p id="timer" class="h4 text-white" ></p>
+<div >
+    <p class="h4 text-white">Insert Logo here!!!</p>
+</div>
+<!-- todo: unable to use the "center-image" class from css file -->
+
+<div class="center-image">
+    <div>
+        <h3 class=" font-weight-bold  text-white " >COMING SOON</h3>
+        <p id="timer" class="h4 text-white ml-md-4" ></p>
     </div>
 </div>
 
