@@ -35,6 +35,8 @@ public class TodoController {
     @PostMapping("/add")
     public ResponseEntity<?> addTodo(@RequestBody TodoDTO todoDto){
 
+        if(!userRepo.existsById(todoDto.getUserId())) {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID does not exist.");}
+
         Todo todo = new Todo(todoService.getDate(todoDto.getDate()), userRepo.findUserById(todoDto.getUserId()), todoDto.getContent());
 
         if(!todoService.verifyDate(todo.getDate())){
