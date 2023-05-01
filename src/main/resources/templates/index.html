@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+    <link rel="stylesheet" th:href="@{css/sb-admin-2.css}">
     <title>Home</title>
-</head>
-<body class="bg-light">
 
+</head>
+
+<body style="overflow: hidden">
 <div class="navbar bg-gradient-purple-red text-light animated--grow-in">
     <div>
         <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
@@ -15,6 +16,34 @@
         <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
     </div>
 </div>
+<div class="bg-theme-gradient-purple-red">
+    <div >
+        <p class="h4 text-white">Insert Logo here!!!</p>
+    </div>
+    <div class="container">
+        <h3 class=" font-weight-bold  text-white justify-content-end " >COMING SOON</h3>
+        <p id="timer" class="h4 text-white" ></p>
+    </div>
+</div>
 
+<script>
+    var countDown = new Date("August 1, 2023").getTime()
+
+    let timer = setInterval(  () => {
+        let now = new Date().getTime()
+        let update = countDown - now;
+        // get the day, hour, minutes
+        var days = Math.floor(update / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((update % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((update % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((update % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = days +"d " + hours +"h "+ minutes+"m "+ seconds+"s "
+
+    }, 1000);
+    if (timer === 0){
+
+    }
+</script>
 </body>
 </html>
