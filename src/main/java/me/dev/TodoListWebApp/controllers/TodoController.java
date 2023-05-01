@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/todo")
 public class TodoController {
 
-
     @Autowired
     TodoRepository todoRepo;
 
@@ -59,7 +58,7 @@ public class TodoController {
         Todo todo = todoRepo.findTodoById(todoID);
 
         if(todo == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Could not find a todo with that ID");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         
         todoRepo.delete(todo);

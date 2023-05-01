@@ -1,7 +1,6 @@
 package me.dev.TodoListWebApp.controllers;
 
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
@@ -28,22 +27,33 @@ public class UserController {
         this.userRepository = userRepo;
     }
 
-  
-    // create a new user entity
+
+    /**
+     * Endpoint to register a new user by saving the user to the database, and setting the browser cookie
+     *
+     * @param user
+     * @param response
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user, HttpServletResponse response) {
         if(user.getUsername().equals("") || user.getPassword().equals("")){
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
         userRepository.save(user);
-        Cookie cookie = new Cookie("userId", user.getId());
-        cookie.setPath("/");
-        cookie.setMaxAge(20000000);
-        response.addCookie(cookie);
+        userService.setUserCookie(user, response);
         return ResponseEntity.ok(user);
     }
 
 
+    /**
+     * Login endpoint
+     * Responsible for handling user authentication logic
+     *
+     * @param user
+     * @param response
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user, HttpServletResponse response) {
         User userFromDB = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
@@ -53,12 +63,8 @@ public class UserController {
         } else if (userFromDB == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            Cookie cookie = new Cookie("userId", user.getId());
-            cookie.setPath("/");
-            cookie.setMaxAge(20000000);
-            response.addCookie(cookie);
+            userService.setUserCookie(user, response);
             return ResponseEntity.ok(userFromDB);
-
         }
     }
 
@@ -86,8 +92,7 @@ public class UserController {
         if(user != null){
             return ResponseEntity.ok(user);
         }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User with ID: " + id + " not found.\nPlease create an account.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
@@ -102,6 +107,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String id) {
         return userService.updateUser(id,user.getUsername(), user.getPassword());
     }
+
 
     /**
      * Endpoint for updating a username

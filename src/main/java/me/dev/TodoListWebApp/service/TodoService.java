@@ -15,6 +15,13 @@ public class TodoService {
     @Autowired
     TodoRepository todoRepo;
 
+
+    /**
+     * Helper method used to verify date validity
+     *
+     * @param date
+     * @return
+     */
     public boolean verifyDate(Date date){
         Date currentDate = new Date();
         return date.before(currentDate);
@@ -34,9 +41,7 @@ public class TodoService {
         } catch (ParseException e){
             e.printStackTrace();
         }
-
         return null;
-
     }
 
     public void toggleTodoState(String todoId){

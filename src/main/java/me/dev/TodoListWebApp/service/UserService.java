@@ -1,5 +1,7 @@
 package me.dev.TodoListWebApp.service;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import me.dev.TodoListWebApp.db.UserRepository;
 import me.dev.TodoListWebApp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ import java.util.List;
 
 @Service
 public class UserService {
-    // auto-inject instance of UserRepository
+
     @Autowired
     UserRepository userRepo;
+
 
     /**
      * if user id exist, then return the user
@@ -27,6 +30,7 @@ public class UserService {
         return userRepo.findUserById(id);
     }
 
+
     /**
      * return a list of all users
      *
@@ -35,6 +39,7 @@ public class UserService {
     public List<User> getAllUser(){
         return (ArrayList<User>) userRepo.findAll();
     }
+
 
     /**
      * if user exist, then delete a user with a given id
@@ -52,6 +57,7 @@ public class UserService {
                     .body("User with ID: " + id + " not found. Please create an account.");
         }
     }
+
 
     /**
      * if user exist, then update the username of a given id
@@ -73,6 +79,7 @@ public class UserService {
                             "not found. Please create an account.");
         }
     }
+
 
     /**
      * check if the given UUID exists, if true update the password and username
@@ -96,6 +103,20 @@ public class UserService {
                     .body("User with ID: " + id + "" +
                             "not found. Please create an account.");
         }
+    }
+
+
+    /**
+     * Responsible for saving the user's uuid in their browser cookies
+     *
+     * @param user
+     * @param response
+     */
+    public void setUserCookie(User user, HttpServletResponse response){
+        Cookie cookie = new Cookie("userId", user.getId());
+        cookie.setPath("/");
+        cookie.setMaxAge(20000000);
+        response.addCookie(cookie);
     }
 }
 
