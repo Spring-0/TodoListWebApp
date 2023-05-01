@@ -24,7 +24,7 @@ public class TodoService {
      */
     public boolean verifyDate(Date date){
         Date currentDate = new Date();
-        return date.before(currentDate);
+        return date.after(currentDate);
     }
 
 
