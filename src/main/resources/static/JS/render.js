@@ -21,7 +21,7 @@ loadTodos(getCookies())
              } else if (response.status === 404) {
                  // User does not have any todos
                  // TODO implement prompt to add todos
-                 alert("You do not have any todos")
+                 addRow()
 
              } else {
                  alert("Something went wrong while loading your todos, try again later.")
@@ -54,14 +54,26 @@ function createTodoTable(todos) {
 
 }
 
-function addRow(){
+async function addRow(){
     const table = document.getElementById("myTable")
 
-    const row = `<tr>
-                                <td ><input type="text" placeholder="Your goal"> </td>
-                                <td><input type="text" placeholder="Enter a date"> </td>
-                                <td> <input  type="checkbox"></td>
-                          </tr>`;
-    table.innerHTML += row
+
+    const contentInput = document.createElement("input")
+    contentInput.setAttribute("type", "text" )
+
+    const dateInput = document.createElement("input")
+    dateInput.setAttribute("type", "text" )
+
+    const checkbox = document.createElement("input")
+    checkbox.setAttribute("type" ,"checkbox")
+
+    const row = document.createElement("tr")
+    const tData = document.createElement("td")
+
+    row.insertCell(0).appendChild(tData.appendChild(contentInput))
+    row.insertCell(1).appendChild(tData.appendChild(dateInput))
+    row.insertCell(2).appendChild(tData.appendChild(checkbox))
+
+    table.appendChild(row)
 
 }
