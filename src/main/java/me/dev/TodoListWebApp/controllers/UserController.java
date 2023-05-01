@@ -3,6 +3,7 @@ package me.dev.TodoListWebApp.controllers;
 
 import jakarta.servlet.http.HttpServletResponse;
 import me.dev.TodoListWebApp.db.UserRepository;
+import me.dev.TodoListWebApp.models.DTO.UserAuthRequestDTO;
 import me.dev.TodoListWebApp.models.User;
 import me.dev.TodoListWebApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
         userRepository.save(user);
-        userService.setUserCookie(user, response);
+        userService.setUserCookie(user.getId(), response);
         return ResponseEntity.ok(user);
     }
 
@@ -50,22 +51,26 @@ public class UserController {
      * Login endpoint
      * Responsible for handling user authentication logic
      *
-     * @param user
+     * @param userAuthRequestDTO
      * @param response
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user, HttpServletResponse response) {
-        User userFromDB = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+    public ResponseEntity<User> login(@RequestBody UserAuthRequestDTO userAuthRequestDTO, HttpServletResponse response) {
+        String requestPasswd = userAuthRequestDTO.getPassword();
+        String requestUsername = userAuthRequestDTO.getUsername();
 
-        if (user.getUsername().equals("") || user.getPassword().equals("")) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
-        } else if (userFromDB == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            userService.setUserCookie(user, response);
+        User userFromDB = userRepository.findUserByUsernameAndPassword(requestUsername, requestPasswd);
+
+        if(userFromDB != null){
+            userService.setUserCookie(userFromDB.getId(), response);
             return ResponseEntity.ok(userFromDB);
         }
+
+        else if (requestUsername.equals("") || requestPasswd.equals("")) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
   

@@ -109,11 +109,11 @@ public class UserService {
     /**
      * Responsible for saving the user's uuid in their browser cookies
      *
-     * @param user
+     * @param userId
      * @param response
      */
-    public void setUserCookie(User user, HttpServletResponse response){
-        Cookie cookie = new Cookie("userId", user.getId());
+    public void setUserCookie(String userId, HttpServletResponse response){
+        Cookie cookie = new Cookie("userId", userId);
         cookie.setPath("/");
         cookie.setMaxAge(20000000);
         response.addCookie(cookie);
