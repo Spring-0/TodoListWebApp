@@ -53,7 +53,7 @@ function register(event) {
     })
         .then(response => {
             if(response.status === 200){
-                window.location.replace("/todos");
+                window.location.assign("/todos");
             } else if(response.status === 422) {
                 alert("Error: Fields cannot be empty.")
             } else{

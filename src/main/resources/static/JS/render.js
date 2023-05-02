@@ -1,5 +1,11 @@
 function getCookies() {
-    return document.cookie.split(";").find((row) => row.startsWith("userId")).split("=")[1];
+    try {
+        let cookie = document.cookie.split(";").find((row) => row.startsWith("userId")).split("=")[1];
+        return cookie
+    } catch (TypeError ){ // check if user cookie exists
+        document.location.assign("/login")
+    }
+
 }
 
 
@@ -15,8 +21,7 @@ function loadTodos(userId) {
 
                 } else if (response.status === 404) {
                     // User does not have any todos
-                    addRow()
-
+                        //document.location.assign("/login")
                 } else {
                     alert("Something went wrong while loading your todos, try again later.")
                 }
