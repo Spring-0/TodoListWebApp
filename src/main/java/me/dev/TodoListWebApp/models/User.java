@@ -63,16 +63,4 @@ public class User {
 
     }
 
-    /*
-    * create a toString method to debug
-    * */
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", todos=" + todos +
-                '}';
-    }
 }
