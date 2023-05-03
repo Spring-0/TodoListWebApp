@@ -29,23 +29,30 @@ public class TodoController {
     /**
      * Endpoint used to add a new to-do to the database, and user's to-do list
      *
-     * @param todoDto
+     * @param
      * @return todo
      */
     @PostMapping("/add")
-    public ResponseEntity<?> addTodo(@RequestBody TodoDTO todoDto){
+    public ResponseEntity<?> addTodo(@RequestBody List<TodoDTO> todoDtos) {
 
-        if(!userRepo.existsById(todoDto.getUserId())) {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID does not exist.");}
 
-        Todo todo = new Todo(todoService.getDate(todoDto.getDate()), userRepo.findUserById(todoDto.getUserId()), todoDto.getContent());
+        for (TodoDTO todoDto : todoDtos) {
+            if (!userRepo.existsById(todoDto.getUserId())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID does not exist.");
+            }
 
-        if(!todoService.verifyDate(todo.getDate())){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(todo);
+            Todo todo = new Todo(todoService.getDate(todoDto.getDate()), userRepo.findUserById(todoDto.getUserId()), todoDto.getContent());
+
+            if (!todoService.verifyDate(todo.getDate())) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(todo);
+            }
+
+            todoRepo.save(todo);
+            todo.getUser().getTodos().add(todo);
         }
 
-        todoRepo.save(todo);
-        todo.getUser().getTodos().add(todo);
-        return ResponseEntity.ok(todo);
+
+        return ResponseEntity.ok("");
     }
 
 
