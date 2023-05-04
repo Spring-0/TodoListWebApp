@@ -4,7 +4,7 @@
  * @param dateString
  * @returns {string}
  */
-function formatDate(dateString){
+function formatDate(dateString) {
     const date = new Date(dateString);
     const options = {
         year: "numeric",
@@ -17,58 +17,56 @@ function formatDate(dateString){
     return date.toLocaleDateString("en-US", options)
 }
 
+
 async function saveTodo() {
-
-    const tableBody = document.getElementById("myTable")
-
+    const tableBody = document.getElementById("myTable");
     const rows = tableBody.getElementsByTagName("tr");
-
-    let todos = []
-    let todo = {"content": "", "date": "", "userId": "", "completed": ""}
+    const todos = [];
 
     for (let i = 0; i < rows.length; i++) {
-        let row = rows[i]
+        const row = rows[i];
+        const cells = row.getElementsByTagName("td");
 
-        for (let j = 0; j < 3; j++) {
+        if(cells[0].querySelector("input") === null){continue; }
 
-            let key = ""
+        const todo = {
+            content: cells[0].querySelector("input").value,
+            date: cells[1].querySelector("input").value,
+            userId: getUserIdFromCookie(),
+            checked: cells[2].querySelector("input").checked,
+        };
 
-            switch (j) {
-                case 0:
-                    key = "content"
-                    break;
-                case 1:
-                    key = "date"
-                    break;
-                case 2:
-                    key = "completed"
-                    let bool = row.getElementsByTagName("td").item(j).getElementsByTagName("input").item(0).checked.toString()
-                    todo[key] = bool
-                    continue;
-                    break;
-            }
+        // Format the date
+        cells[1].querySelector("input").value = formatDate(cells[1].querySelector("input").value)
 
-            todo[key] = row.getElementsByTagName("td").item(j).getElementsByTagName("input").item(0).value
-            todo["userId"] = getUserIdFromCookie();
-
+        if (todo.userId) {
+            todos.push(todo);
         }
 
-        todos.push(todo)
-        todo = {"content": "", "date": "", "userId": "", "completed": ""}
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            const input = cell.querySelector("input");
+
+            if (input) {
+                cell.innerHTML = input.value;
+                if (input.parentNode === cell) {
+                    cell.removeChild(input);
+                }
+                if (cell.getAttribute("data-key") === "date") {
+                    cell.textContent = formatDate(cell.textContent);
+                }
+            }
+        }
     }
+    console.log(JSON.stringify(todos))
 
-
-    fetch("todo/add", {
+    await fetch('/todo/add', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(todos)
     })
-        .then(response => {
-            if (response.ok) {
-                console.log("Successfully saved the entry to the db")
-                console.log(response)
-            }
-        })
 
 }
 

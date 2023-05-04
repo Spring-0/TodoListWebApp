@@ -6,6 +6,7 @@ public class TodoDTO {
     private String date;
     private String userId;
     private String content;
+    private Boolean checked;
 
 
     public TodoDTO(){
@@ -34,5 +35,13 @@ public class TodoDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getChecked(){
+        return this.checked;
+    }
+
+    public void setChecked(Boolean checked){
+        this.checked = checked;
     }
 }

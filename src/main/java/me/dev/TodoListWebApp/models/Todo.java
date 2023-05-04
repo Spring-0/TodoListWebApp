@@ -18,14 +18,14 @@ public class Todo {
 
     private String content;
 
-    private boolean completed;
+    private boolean checked;
 
-    public Todo(Date date, User user, String content){
+    public Todo(Date date, User user, String content, Boolean checked){
         this.id = UUID.randomUUID().toString();
         this.date = date;
         this.user = user;
         this.content = content;
-        this.completed = false;
+        this.checked = checked;
     }
 
     public Todo(){
@@ -39,7 +39,7 @@ public class Todo {
     }
 
     public void toggleCompletion(){
-        this.completed = !this.completed;
+        this.checked = !this.checked;
     }
 
 
