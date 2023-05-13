@@ -52,6 +52,16 @@ function populateTodoTable(todos) {
             checkboxCell.appendChild(checkbox);
             row.appendChild(checkboxCell);
 
+            const deleteCell = document.createElement("td");
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () => {
+                deleteTodo(todo.id);
+                row.remove();
+            });
+            deleteCell.appendChild(deleteButton);
+            row.appendChild(deleteCell);
+
             table.appendChild(row);
         });
     });
