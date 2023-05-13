@@ -4,11 +4,11 @@ public class UserAuthRequestDTO {
     private String username;
     private String password;
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.password;
     }
 }

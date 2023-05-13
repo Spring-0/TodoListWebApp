@@ -18,10 +18,9 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    private final UserRepository userRepository;
     @Autowired
     UserService userService;
-
-    private final UserRepository userRepository;
 
     @Autowired
     public UserController(UserRepository userRepo) {
@@ -38,7 +37,7 @@ public class UserController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user, HttpServletResponse response) {
-        if(user.getUsername().equals("") || user.getPassword().equals("")){
+        if (user.getUsername().equals("") || user.getPassword().equals("")) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
         userRepository.save(user);
@@ -62,18 +61,16 @@ public class UserController {
 
         User userFromDB = userRepository.findUserByUsernameAndPassword(requestUsername, requestPasswd);
 
-        if(userFromDB != null){
+        if (userFromDB != null) {
             userService.setUserCookie(userFromDB.getId(), response);
             return ResponseEntity.ok(userFromDB);
-        }
-
-        else if (requestUsername.equals("") || requestPasswd.equals("")) {
+        } else if (requestUsername.equals("") || requestPasswd.equals("")) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-  
+
     /**
      * Endpoint used to get all users
      *
@@ -84,7 +81,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
-  
+
     /**
      * Endpoint used to retrieve a user given id
      *
@@ -92,11 +89,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> getUser(@PathVariable String id)  {
+    public ResponseEntity<?> getUser(@PathVariable String id) {
         User user = userService.getUserById(id);
-        if(user != null){
+        if (user != null) {
             return ResponseEntity.ok(user);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -104,25 +101,27 @@ public class UserController {
 
     /**
      * endpoint for updating the username and password for a given ID
+     *
      * @param user request body from the user as input
-     * @param id the user's UUID
+     * @param id   the user's UUID
      * @return
      */
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String id) {
-        return userService.updateUser(id,user.getUsername(), user.getPassword());
+        return userService.updateUser(id, user.getUsername(), user.getPassword());
     }
 
 
     /**
      * Endpoint for updating a username
-     * @param user  the body containing the new changes
-     * @param id the user's UUID
+     *
+     * @param user the body containing the new changes
+     * @param id   the user's UUID
      * @return
      */
-   @PatchMapping ("/update-userName/{id}")
-    public ResponseEntity<?> updateUsername(@RequestBody User user, @PathVariable String id)  {
-        return  userService.updateUsername(id, user.getUsername());
+    @PatchMapping("/update-userName/{id}")
+    public ResponseEntity<?> updateUsername(@RequestBody User user, @PathVariable String id) {
+        return userService.updateUsername(id, user.getUsername());
     }
 
 
@@ -132,9 +131,9 @@ public class UserController {
      * @param id the user's UUID
      * @return
      */
-   @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser( @PathVariable String id )  {
-       return userService.deleteUserById(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+        return userService.deleteUserById(id);
     }
 
 

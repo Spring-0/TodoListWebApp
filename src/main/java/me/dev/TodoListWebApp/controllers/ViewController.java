@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
 
     @GetMapping("/register")
-    public String viewRegister(){
+    public String viewRegister() {
         return "register.html";
     }
 
 
     @GetMapping("/login")
-    public String viewLogin(){
+    public String viewLogin() {
         return "login.html";
     }
 
 
     @GetMapping("/home")
-    public String viewIndex(){
+    public String viewIndex() {
         return "index.html";
     }
 
 
     @GetMapping("/todos")
-    public String viewTodo(){
+    public String viewTodo() {
         return "todos.html";
     }
 

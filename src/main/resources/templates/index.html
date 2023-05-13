@@ -17,11 +17,11 @@
     }
 
 </style>
-<body style="overflow: hidden"class="bg-theme-gradient-purple-red">
+<body style="overflow: hidden" class="bg-theme-gradient-purple-red">
 <div class="navbar bg-gradient-purple-red border-bottom-light text-light animated--grow-in">
     <div>
         <a href="/home" class="text-light btn-outline-light bg-gray-900 btn">Home</a>
-        <a  href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
+        <a href="/todos" class="text-light btn-outline-light bg-gray-900 btn">Todos</a>
         <a href="/login" class="text-light btn-outline-light bg-gray-900 btn">Login</a>
         <a href="/help" class="text-light btn-outline-light bg-gray-900 btn">Help</a>
     </div>
@@ -29,15 +29,15 @@
 
 <div class="center-image">
     <div>
-        <h3 class=" font-weight-bold  text-white " >COMING SOON</h3>
-        <p id="timer" class="h4 text-white ml-md-4" ></p>
+        <h3 class=" font-weight-bold  text-white ">COMING SOON</h3>
+        <p id="timer" class="h4 text-white ml-md-4"></p>
     </div>
 </div>
 
 <script>
     const countDown = new Date("August 1, 2023").getTime();
 
-    let timer = setInterval(  () => {
+    let timer = setInterval(() => {
         let now = new Date().getTime()
         let update = countDown - now;
         // get the day, hour, minutes
@@ -46,10 +46,10 @@
         const minutes = Math.floor((update % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((update % (1000 * 60)) / 1000);
 
-        document.getElementById("timer").innerHTML = days +"d " + hours +"h "+ minutes+"m "+ seconds+"s "
+        document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s "
 
     }, 1000);
-    if (timer === 0){
+    if (timer === 0) {
 
     }
 </script>

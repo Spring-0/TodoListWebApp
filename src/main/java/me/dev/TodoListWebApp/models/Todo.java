@@ -1,6 +1,7 @@
 package me.dev.TodoListWebApp.models;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class Todo {
 
     private boolean checked;
 
-    public Todo(Date date, User user, String content, Boolean checked){
+    public Todo(Date date, User user, String content, Boolean checked) {
         this.id = UUID.randomUUID().toString();
         this.date = date;
         this.user = user;
@@ -28,17 +29,17 @@ public class Todo {
         this.checked = checked;
     }
 
-    public Todo(){
+    public Todo() {
 
     }
 
 
-    public void editTodo(Todo todo){
+    public void editTodo(Todo todo) {
         this.date = todo.date;
         this.content = todo.content;
     }
 
-    public void toggleCompletion(){
+    public void toggleCompletion() {
         this.checked = !this.checked;
     }
 

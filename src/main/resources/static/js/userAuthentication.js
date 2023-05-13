@@ -1,4 +1,3 @@
-
 function login(event) {
 
     event.preventDefault();
@@ -19,11 +18,11 @@ function login(event) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            if(response.status === 200) {
+            if (response.status === 200) {
                 window.location.replace("/todos");
-            } else if(response.status === 422){
+            } else if (response.status === 422) {
                 alert("Error: Fields cannot be empty.")
-            } else{
+            } else {
                 alert("Error: Unable to authenticate with those credentials.");
             }
         })
@@ -52,11 +51,11 @@ function register(event) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            if(response.status === 200){
+            if (response.status === 200) {
                 window.location.assign("/todos");
-            } else if(response.status === 422) {
+            } else if (response.status === 422) {
                 alert("Error: Fields cannot be empty.")
-            } else{
+            } else {
                 alert("Error: Unable to register at the moment, try again later.");
             }
         })

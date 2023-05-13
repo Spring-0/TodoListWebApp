@@ -9,7 +9,7 @@ public class TodoDTO {
     private Boolean checked;
 
 
-    public TodoDTO(){
+    public TodoDTO() {
 
     }
 
@@ -37,11 +37,11 @@ public class TodoDTO {
         this.content = content;
     }
 
-    public Boolean getChecked(){
+    public Boolean getChecked() {
         return this.checked;
     }
 
-    public void setChecked(Boolean checked){
+    public void setChecked(Boolean checked) {
         this.checked = checked;
     }
 }

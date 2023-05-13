@@ -5,9 +5,9 @@ import me.dev.TodoListWebApp.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class TodoService {
@@ -22,7 +22,7 @@ public class TodoService {
      * @param date
      * @return
      */
-    public boolean verifyDate(Date date){
+    public boolean verifyDate(Date date) {
         Date currentDate = new Date();
         return date.after(currentDate);
     }
@@ -36,15 +36,15 @@ public class TodoService {
      */
     public Date getDate(String date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        try{
+        try {
             return simpleDateFormat.parse(date);
-        } catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void toggleTodoState(String todoId){
+    public void toggleTodoState(String todoId) {
         Todo todo = todoRepo.findTodoById(todoId);
         todo.toggleCompletion();
         todoRepo.save(todo);
