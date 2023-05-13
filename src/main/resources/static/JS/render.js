@@ -36,13 +36,23 @@ function populateTodoTable(todos) {
         table.innerHTML = "";
 
         data.forEach(todo => {
-            const row = `<tr>
-                <td>${todo.content}</td>
-                <td>${formatDate(todo.date)}</td>
-                <td><input type="checkbox"></td>
-            </tr>`;
+            const row = document.createElement("tr");
 
-            table.insertAdjacentHTML("beforeend", row);
+            const contentCell = document.createElement("td");
+            contentCell.textContent = todo.content;
+            row.appendChild(contentCell);
+
+            const dateCell = document.createElement("td");
+            dateCell.textContent = formatDate(todo.date);
+            row.appendChild(dateCell);
+
+            const checkboxCell = document.createElement("td");
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkboxCell.appendChild(checkbox);
+            row.appendChild(checkboxCell);
+
+            table.appendChild(row);
         });
     });
 }
